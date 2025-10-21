@@ -137,6 +137,8 @@ namespace LoZ.Entities
         public void Stop()
         {
             isMoving = false;
+            playerPos.X = (float)Math.Round(playerPos.X / GameConfig.tileSize) * GameConfig.tileSize;
+            playerPos.Y = (float)Math.Round(playerPos.Y / GameConfig.tileSize) * GameConfig.tileSize;
             SetIdle();
         }
 
@@ -148,8 +150,8 @@ namespace LoZ.Entities
             if (kb.IsKeyDown(Keys.Space) && attackTimer <= 0)
             {
                 isAttacking = true;
-                isMoving = false;
-                attackTimer = attackCooldown; 
+                Stop();
+                attackTimer = attackCooldown;
 
                 switch (facing)
                 {
