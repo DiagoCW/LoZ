@@ -1,0 +1,59 @@
+{
+    "activeFile": "world.tmx",
+    "expandedProjectPaths": [
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets",
+        "C:/Users/stefa/source/repos/LoZ/Content/TilesetImages",
+        "."
+    ],
+    "fileStates": {
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/Beach_Tile.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/Bridge_Wood.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/Cliff_Tile.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/Fences.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/House.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/Oak_Tree.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/Oak_Tree_Small.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/Outdoor_Decor.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/Path_Tile.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/Water_Tile.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/stefa/source/repos/LoZ/Content/Tilesets/grass.tsx": {
+            "scaleInDock": 1
+        },
+        "world.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 310.66666666666663,
+                "y": 978.3333333333333
+            }
+        }
+    },
+    "openFiles": [
+        "world.tmx"
+    ],
+    "project": "LoZ.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "world.tmx"
+    ]
+}
