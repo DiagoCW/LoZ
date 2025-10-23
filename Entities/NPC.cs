@@ -28,13 +28,8 @@ namespace LoZ.Entities
         private int width = GameConfig.NPCWidth;
         private int height = GameConfig.NPCHeight;
 
-        public bool HasCollision
-        {
-            get
-            {
-                return isActive && isCollidable && (Type == NPCType.BlockingCow && !QuestManager.LostCowFound);
-            }
-        }
+        private bool pendingWin = false;
+        public bool HasCollision { get { return (isActive && isCollidable); }  }
 
         public NPC(Vector2 pos, Texture2D sprite, NPCType type)
         {
@@ -54,7 +49,7 @@ namespace LoZ.Entities
 
         private void DisplayDialogue(string text)
         {
-            System.Diagnostics.Debug.WriteLine($"[NPC says]: {text}");
+            DialogueManager.Show(text);
         }
 
         public void Interact()
@@ -92,11 +87,7 @@ namespace LoZ.Entities
                     if (QuestManager.LostCowFound)
                     {
                         DisplayDialogue("Bawk! Bawk! You saved me! <3");
-                        QuestManager.WinGame();
-                    }
-                    else
-                    {
-                        DisplayDialogue("Bawk? Have you seen the lost cow?");
+                        pendingWin = true;
                     }
                     break;
             }
@@ -105,6 +96,13 @@ namespace LoZ.Entities
         public void Update(GameTime gameTime)
         {
             if (!isActive) return;
+
+            if (pendingWin && !DialogueManager.IsOpen)
+            {
+                QuestManager.WinGame();
+                pendingWin = false;
+            }
+
             current.Update(gameTime);
         }
 

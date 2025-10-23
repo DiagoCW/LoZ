@@ -11,17 +11,18 @@ namespace LoZ.Misc
         private int frameWidth;
         private int frameHeight;
         private float frameTime;
-
         private int currentFrame;
         private float timer;
-
-        public bool IsLooping { get; set; } = true;
-        public bool IsFinished 
+        private bool isLooping;
+        public bool IsFinished
         {
-            get { return !IsLooping && currentFrame >= frameCount - 1; }
+            get
+            {
+                return !isLooping && currentFrame >= frameCount - 1;
+            }
         }
 
-        public Animation(Texture2D texture, int row, int frameCount, int frameWidth, int frameHeight, float frameTime) 
+        public Animation(Texture2D texture, int row, int frameCount, int frameWidth, int frameHeight, float frameTime, bool isLooping = true) 
         {
             this.texture = texture;
             this.row = row;
@@ -29,6 +30,7 @@ namespace LoZ.Misc
             this.frameWidth = frameWidth;
             this.frameHeight = frameHeight;
             this.frameTime = frameTime;
+            this.isLooping = isLooping;
         }
 
         public void Reset() 
@@ -46,7 +48,7 @@ namespace LoZ.Misc
                 currentFrame++;
                 if (currentFrame >= frameCount) 
                 {
-                    if (IsLooping) currentFrame = 0;
+                    if (isLooping) currentFrame = 0;
                     else currentFrame = frameCount - 1;
                 }
             }

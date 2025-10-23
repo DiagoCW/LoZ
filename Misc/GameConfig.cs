@@ -22,7 +22,7 @@ namespace LoZ.Misc
         public const double playerInvulnDuration = 1f;
         public const int playerWidth = 32;
         public const int playerHeight = 32;
-        public const float playerSpeed = 150f;
+        public const float playerSpeed = 400f;
         public const int playerStartTileX = 4 * 16;
         public const int playerStartTileY = 115 * 16;
         public const double attackCooldown = 0.7f;
@@ -56,8 +56,8 @@ namespace LoZ.Misc
         public const float skeletonIdleAnimSpeed = 0.15f;
         public const float skeletonRunAnimSpeed = 0.10f;
         public const float skeletonDeathAnimSpeed = 0.12f;
-        public const float skeletonHitAnimSpeed = 0.09f;
-        public const float skeletonHitDuration = 0.4f;
+        public const float skeletonHitAnimSpeed = 0.14f;
+        public const float skeletonHitDuration = 1f;
         public const int skeletonWidth = 32;
         public const int skeletonHeight = 32;
 

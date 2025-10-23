@@ -30,6 +30,7 @@ namespace LoZ.Entities
         private Facing facing = Facing.Down;
 
         private bool isAttacking;
+        private bool attackHasHit = false;
         private double attackTimer = 0;
         private double attackCooldown = GameConfig.attackCooldown;
 
@@ -44,6 +45,7 @@ namespace LoZ.Entities
         private Animation death;
         private Animation current;
 
+        public Animation currentAnimation { get { return current; } }
         public bool IsAttacking { get { return isAttacking; } }
         public bool IsInvulnerable { get { return isInvuln; } }
         public bool IsDead { get { return isDead; } }
@@ -78,11 +80,11 @@ namespace LoZ.Entities
             runRight = new Animation(spriteSheet, 4, 6, width, height, GameConfig.playerRunAnimSpeed);
             runUp = new Animation(spriteSheet, 5, 6, width, height, GameConfig.playerRunAnimSpeed);
 
-            fightDown = new Animation(spriteSheet, 6, 4, width, height, GameConfig.playerAttackAnimSpeed) { IsLooping = false };
-            fightRight = new Animation(spriteSheet, 7, 4, width, height, GameConfig.playerAttackAnimSpeed) { IsLooping = false };
-            fightUp = new Animation(spriteSheet, 8, 4, width, height, GameConfig.playerAttackAnimSpeed) { IsLooping = false };
+            fightDown = new Animation(spriteSheet, 6, 4, width, height, GameConfig.playerAttackAnimSpeed, false);
+            fightRight = new Animation(spriteSheet, 7, 4, width, height, GameConfig.playerAttackAnimSpeed, false);
+            fightUp = new Animation(spriteSheet, 8, 4, width, height, GameConfig.playerAttackAnimSpeed, false);
 
-            death = new Animation(spriteSheet, 9, 4, width, height, GameConfig.playerDeathAnimSpeed) { IsLooping = false };
+            death = new Animation(spriteSheet, 9, 4, width, height, GameConfig.playerDeathAnimSpeed, false);
         }
 
         private void SetIdle()
@@ -150,6 +152,7 @@ namespace LoZ.Entities
             if (kb.IsKeyDown(Keys.Space) && attackTimer <= 0)
             {
                 isAttacking = true;
+                attackHasHit = false;
                 Stop();
                 attackTimer = attackCooldown;
 
@@ -172,6 +175,16 @@ namespace LoZ.Entities
                     SetIdle();
                 }
             }
+        }
+
+        public bool CanDealDamage() 
+        {
+            if (isAttacking && !attackHasHit) 
+            {
+                attackHasHit = true;
+                return true;
+            }
+            return false;
         }
 
         public Rectangle GetAttackHitBox() 
@@ -215,6 +228,30 @@ namespace LoZ.Entities
             isDead = true;
             current = death;
             current.Reset();
+        }
+
+        public void Revive()
+        {
+            // Reset position and bounding box
+            playerPos = new Vector2(GameConfig.playerStartTileX, GameConfig.playerStartTileY);
+            playerRec.Location = playerPos.ToPoint();
+
+            // Reset health and death flags
+            health = GameConfig.playerMaxHealth;
+            isDead = false;
+            isInvuln = false;
+            invulnTimer = 0f;
+
+            // Reset movement and attack state
+            isMoving = false;
+            isAttacking = false;
+            moveDir = Vector2.Zero;
+            moveTarget = playerPos;
+            attackTimer = 0;
+            facing = Facing.Down;
+
+            // Reset animation
+            SetIdle();
         }
 
         public void Update(GameTime gameTime) 

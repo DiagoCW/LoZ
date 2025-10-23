@@ -38,9 +38,12 @@ namespace LoZ.Entities
         private Animation death;
         private Animation current;
 
+        public event Action<Skeleton> OnDied;
+
         private Random rnd;
 
         public bool IsDead { get { return isDead; } }
+        public bool IsHit { get { return isHit; } }
 
         public Skeleton(Vector2 startPos, Texture2D spriteSheet, Random random)
         {
@@ -54,7 +57,7 @@ namespace LoZ.Entities
             moveTarget = enemyPos;
 
             moveTimer = (float)rnd.NextDouble() * moveInterval;
-            moveInterval = GameConfig.skeletonMoveInterval + (float)rnd.NextDouble() * 1f;
+            moveInterval = GameConfig.skeletonMoveInterval + (float)rnd.NextDouble();
 
             float speedVariation = (float)rnd.NextDouble() * 0.4f + 1f;
             moveSpeed = GameConfig.skeletonSpeed * speedVariation;
@@ -82,11 +85,11 @@ namespace LoZ.Entities
             runRight = new Animation(sheet, 4, 6, width, height, runSpeed);
             runUp = new Animation(sheet, 5, 6 , width, height, runSpeed);
 
-            death = new Animation(sheet, 6, 4, width, height, deathSpeed) { IsLooping = false };
+            death = new Animation(sheet, 6, 4, width, height, deathSpeed, false);
 
-            hitDown = new Animation(sheet, 7, 4, width, height, hitSpeed) { IsLooping = false };
-            hitRight = new Animation(sheet, 8, 4, width , height, hitSpeed) { IsLooping = false };
-            hitUp = new Animation(sheet, 9, 4, width , height, hitSpeed) { IsLooping = false };
+            hitDown = new Animation(sheet, 7, 4, width, height, hitSpeed, false);
+            hitRight = new Animation(sheet, 8, 4, width, height, hitSpeed, false);
+            hitUp = new Animation(sheet, 9, 4, width, height, hitSpeed, false); 
         }
 
         private void SetIdle()
@@ -189,11 +192,11 @@ namespace LoZ.Entities
                 hitTimer = 0f;
                 health--;
 
-                if (attackerPos.HasValue) 
+                if (attackerPos.HasValue)
                 {
                     Vector2 tileOffset = enemyPos - attackerPos.Value;
 
-                    if (tileOffset != Vector2.Zero) 
+                    if (tileOffset != Vector2.Zero)
                     {
                         tileOffset.Normalize();
                         Vector2 target = enemyPos + tileOffset * GameConfig.tileSize;
@@ -232,7 +235,7 @@ namespace LoZ.Entities
 
             if (isHit) 
             {
-                if (hitTimer >= hitDuration || current.IsFinished) 
+                if (hitTimer >= hitDuration && current.IsFinished) 
                 {
                     isHit = false;
                     SetIdle();
@@ -248,6 +251,7 @@ namespace LoZ.Entities
             current = death;
             current.Reset();
             enemyRec = Rectangle.Empty;
+            OnDied?.Invoke(this);
         }
 
         public void Update(GameTime gameTime) 
@@ -268,7 +272,7 @@ namespace LoZ.Entities
                     SetIdle();
                 }
             }
-            else 
+            else if (!isHit)
             {
                 moveTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (moveTimer >= moveInterval && !isMoving)
