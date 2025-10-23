@@ -50,6 +50,18 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/VictoryBackground.jpg
 
+#begin carrot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:carrot.png
+
 #begin Fonts/Dialogue.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

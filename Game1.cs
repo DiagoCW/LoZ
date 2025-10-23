@@ -158,7 +158,11 @@ namespace LoZ
                     DialogueManager.Draw(spriteBatch);
                     spriteBatch.Begin(samplerState: SamplerState.PointClamp);
                     Vector2 hudPos = new Vector2(10, 10);
-                    spriteBatch.DrawString(hud, $"Score: {gameManager.Score}   Lives: {gameManager.Player.Health}", hudPos, Color.White);
+                    for (int i = 0; i < gameManager.Player.Health; i++)
+                    {
+                        spriteBatch.Draw(TextureManager.carrotTex, new Vector2(25 * i, 30), Color.White);
+                    }
+                    spriteBatch.DrawString(hud, $"Score: {gameManager.Score}", hudPos, Color.White);
                     break;
 
                 case GameState.GameOver:

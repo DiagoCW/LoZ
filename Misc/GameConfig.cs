@@ -18,11 +18,11 @@ namespace LoZ.Misc
 
         // Player settings
 
-        public const int playerMaxHealth = 100;
+        public const int playerMaxHealth = 3;
         public const double playerInvulnDuration = 1f;
         public const int playerWidth = 32;
         public const int playerHeight = 32;
-        public const float playerSpeed = 400f;
+        public const float playerSpeed = 150f;
         public const int playerStartTileX = 4 * 16;
         public const int playerStartTileY = 115 * 16;
         public const double attackCooldown = 0.7f;
